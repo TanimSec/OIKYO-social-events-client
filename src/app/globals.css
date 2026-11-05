@@ -3,6 +3,7 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  --font-sans: var(--font-plus-jakarta-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --background: #f8fafc;
   --foreground: #0f172a;
   --card: #ffffff;
@@ -50,6 +51,6 @@
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
   transition: background-color 0.25s ease, color 0.25s ease;
 }
