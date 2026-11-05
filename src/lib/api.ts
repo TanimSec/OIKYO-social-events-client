@@ -10,14 +10,19 @@ const SERVER_BASE_URL =
  * Obtains a signed JWT token from the backend for the authenticated user.
  */
 export async function getBackendToken(
-  email: string,
+  emailOrUser: string | { email: string; name?: string },
   name?: string
 ): Promise<string | null> {
   try {
+    const email =
+      typeof emailOrUser === "string" ? emailOrUser : emailOrUser.email;
+    const userName =
+      typeof emailOrUser === "string" ? name : emailOrUser.name;
+
     const res = await fetch(`${SERVER_BASE_URL}/api/jwt`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, name }),
+      body: JSON.stringify({ email, name: userName }),
     });
 
     if (res.ok) {
@@ -32,11 +37,10 @@ export async function getBackendToken(
 }
 
 /**
- * Helper to get the today's date formatted as YYYY-MM-DD for HTML input min attributes.
+ * Helper to get tomorrow's date formatted as YYYY-MM-DD for HTML input min attributes.
  */
 export function getTomorrowOrTodayDateString(): string {
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
   return tomorrow.toISOString().split("T")[0];
 }
-

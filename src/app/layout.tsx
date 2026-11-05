@@ -1,3 +1,4 @@
+import * as React from "react";
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { Toaster } from "sonner";
@@ -37,7 +38,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar />
+          <React.Suspense fallback={<div className="h-16 border-b border-border/40" />}>
+            <Navbar />
+          </React.Suspense>
           <main className="flex-1">{children}</main>
           <Footer />
           <Toaster position="top-right" richColors />
