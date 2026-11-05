@@ -53,20 +53,21 @@ export function FeatureSection() {
       className="py-16 sm:py-24 border-b border-zinc-200/80 dark:border-zinc-800/80 bg-white dark:bg-zinc-950"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14">
-        {/* Editorial Two-Column Header (Inspired by GenocideEdu NGO Design) */}
+        {/* Editorial Two-Column Header */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start border-b border-zinc-100 dark:border-zinc-900 pb-12">
           <div className="lg:col-span-6 space-y-3">
-            <span className="text-xs font-bold uppercase tracking-wider text-rose-500">
-              What We Do
+            <span className="text-xs font-bold uppercase tracking-widest text-emerald-600 dark:text-emerald-400">
+              Our Civic Mission
             </span>
-            <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-zinc-900 dark:text-zinc-50 leading-[1.1]">
-              Meeting <span className="text-rose-500">Immediate Needs</span>, Building Strong Futures
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-50 leading-[1.15] text-balance">
+              Empowering Citizens, <br className="hidden sm:inline" />
+              <span className="text-emerald-600 dark:text-emerald-400">Transforming Dhaka</span>
             </h2>
           </div>
 
           <div className="lg:col-span-6 pt-2">
             <p className="text-base sm:text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
-              Our grassroots civic programs are built to deliver both immediate humanitarian relief and lasting social transformation. We address urgent community challenges—such as winter cold waves, lake pollution, and primary healthcare gaps across Dhaka—while equipping citizens with the transparent platform needed to organize sustainable community solutions.
+              Oikyo bridges compassionate volunteers with hyper-local needs across Bangladesh. Whether it is distributing warm blankets during Mirpur winter cold waves, rehabilitating Dhanmondi Lake ecosystems, or hosting free blood screening clinics in Mohammadpur, our community platform provides the transparent infrastructure for real civic impact.
             </p>
           </div>
         </div>
