@@ -19,6 +19,8 @@ import {
   ExternalLink,
   X,
   Sparkles,
+  ShieldCheck,
+  User,
 } from "lucide-react";
 
 const EVENT_TYPES = [
@@ -30,21 +32,47 @@ const EVENT_TYPES = [
   "Relief",
 ];
 
-function ManageEventsHeader({ count }: { count: number }) {
+function ManageEventsHeader({
+  count,
+  isSuperadmin,
+}: {
+  count: number;
+  isSuperadmin: boolean;
+}) {
   return (
     <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
       <div className="space-y-2">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 text-xs font-semibold">
-          <FolderKanban className="w-3.5 h-3.5" />
-          <span>Organizer Control Panel</span>
+        <div
+          className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold ${
+            isSuperadmin
+              ? "bg-purple-100 dark:bg-purple-950/80 text-purple-800 dark:text-purple-300"
+              : "bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300"
+          }`}
+        >
+          {isSuperadmin ? (
+            <ShieldCheck className="w-3.5 h-3.5" />
+          ) : (
+            <FolderKanban className="w-3.5 h-3.5" />
+          )}
+          <span>
+            {isSuperadmin
+              ? "Superadmin Control Center"
+              : "Organizer Control Panel"}
+          </span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-50">
-          Manage My Created Events
+          {isSuperadmin
+            ? "Manage All Platform Initiatives"
+            : "Manage My Created Events"}
         </h1>
         <p className="text-sm text-zinc-600 dark:text-zinc-400 max-w-xl">
-          Review, update details, or remove civic drives you have initiated across Dhaka. You are currently managing{" "}
-          <strong className="text-zinc-900 dark:text-zinc-100">{count}</strong>{" "}
-          initiative{count === 1 ? "" : "s"}.
+          {isSuperadmin
+            ? `Superadmin privileges active. You have full authority to edit or delete any community initiative across Dhaka. Currently overseeing ${count} initiative${
+                count === 1 ? "" : "s"
+              }.`
+            : `Review, update details, or remove civic drives you have initiated across Dhaka. You are currently managing ${count} initiative${
+                count === 1 ? "" : "s"
+              }.`}
         </p>
       </div>
 
@@ -328,11 +356,17 @@ function EditEventModal({ event, onClose, onSuccess }: EditModalProps) {
 
 interface EventItemProps {
   event: SocialEvent;
+  isSuperadmin?: boolean;
   onEdit: (event: SocialEvent) => void;
   onDelete: (id: string, title: string) => void;
 }
 
-function ManageEventItem({ event, onEdit, onDelete }: EventItemProps) {
+function ManageEventItem({
+  event,
+  isSuperadmin,
+  onEdit,
+  onDelete,
+}: EventItemProps) {
   const formattedDate = new Date(event.eventDate).toLocaleDateString("en-US", {
     month: "short",
     day: "numeric",
@@ -353,10 +387,18 @@ function ManageEventItem({ event, onEdit, onDelete }: EventItemProps) {
         </div>
 
         <div className="space-y-1.5 overflow-hidden">
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300">
               {event.eventType}
             </span>
+            {isSuperadmin && (
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700">
+                <User className="w-2.5 h-2.5 text-emerald-600" />
+                <span className="truncate max-w-[190px]">
+                  {event.creatorEmail || "Partner NGO"}
+                </span>
+              </span>
+            )}
           </div>
           <h3 className="font-bold text-sm sm:text-base text-zinc-900 dark:text-zinc-100 truncate">
             {event.title}
@@ -406,6 +448,7 @@ function ManageEventItem({ event, onEdit, onDelete }: EventItemProps) {
 function ManageEventsContent() {
   const { data: session } = useSession();
   const [events, setEvents] = React.useState<SocialEvent[]>([]);
+  const [isSuperadmin, setIsSuperadmin] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
   const [editingEvent, setEditingEvent] = React.useState<SocialEvent | null>(null);
 
@@ -425,6 +468,7 @@ function ManageEventsContent() {
       if (res.ok) {
         const data = await res.json();
         setEvents(data.events || []);
+        setIsSuperadmin(Boolean(data.isSuperadmin));
       }
     } catch (error) {
       console.error("Error fetching managed events:", error);
@@ -481,7 +525,7 @@ function ManageEventsContent() {
 
   return (
     <div className="space-y-8">
-      <ManageEventsHeader count={events.length} />
+      <ManageEventsHeader count={events.length} isSuperadmin={isSuperadmin} />
 
       {isLoading ? (
         <ManageEventsSkeleton />
@@ -493,6 +537,7 @@ function ManageEventsContent() {
             <ManageEventItem
               key={event._id}
               event={event}
+              isSuperadmin={isSuperadmin}
               onEdit={setEditingEvent}
               onDelete={handleDelete}
             />
