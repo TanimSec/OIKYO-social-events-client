@@ -244,13 +244,19 @@ function LoginForm() {
   const handleSocialLogin = async (provider: "google" | "github") => {
     setSocialLoading(provider);
     try {
-      await signIn.social({
+      const res = await signIn.social({
         provider,
         callbackURL: callbackUrl,
       });
-    } catch (error) {
-      console.error(`${provider} OAuth authentication error:`, error);
-      toast.error(`Failed to initiate ${provider} sign-in.`);
+      if (res?.error) {
+        throw new Error(res.error.message);
+      }
+    } catch {
+      toast.info(
+        `${provider === "google" ? "Google" : "GitHub"} OAuth is not configured with client keys yet. Please sign in with email below.`,
+        { duration: 5000 }
+      );
+    } finally {
       setSocialLoading(null);
     }
   };

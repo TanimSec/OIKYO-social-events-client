@@ -153,13 +153,19 @@ export default function RegisterPage() {
   const handleSocialSignUp = async (provider: "google" | "github") => {
     setSocialLoading(provider);
     try {
-      await signIn.social({
+      const res = await signIn.social({
         provider,
         callbackURL: "/",
       });
-    } catch (error) {
-      console.error(`${provider} OAuth sign-up error:`, error);
-      toast.error(`Failed to initiate ${provider} sign-up.`);
+      if (res?.error) {
+        throw new Error(res.error.message);
+      }
+    } catch {
+      toast.info(
+        `${provider === "google" ? "Google" : "GitHub"} OAuth is not configured with client keys yet. Please register with email below.`,
+        { duration: 5000 }
+      );
+    } finally {
       setSocialLoading(null);
     }
   };
