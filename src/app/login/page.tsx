@@ -205,16 +205,13 @@ function LoginForm() {
       const result = await signIn.email({
         email: email.trim().toLowerCase(),
         password,
-        fetchOptions: {
-          onError: (ctx) => {
-            const errorMsg = ctx.error.message || "Invalid email or password";
-            toast.error(errorMsg);
-          },
-        },
       });
 
-      if (result.error) {
-        toast.error(result.error.message || "Invalid credentials. Please verify your email and password.");
+      if (result?.error) {
+        toast.error(
+          result.error.message ||
+            "Invalid credentials. Please verify your email and password."
+        );
         setIsLoading(false);
         return;
       }
@@ -233,9 +230,13 @@ function LoginForm() {
 
       router.push(callbackUrl);
       router.refresh();
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("Login attempt error:", error);
-      toast.error("An unexpected error occurred. Please check your credentials.");
+      const errMsg =
+        error instanceof Error
+          ? error.message
+          : "An unexpected error occurred. Please check your credentials.";
+      toast.error(errMsg);
     } finally {
       setIsLoading(false);
     }

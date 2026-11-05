@@ -204,16 +204,13 @@ export default function RegisterPage() {
         password,
         name: name.trim(),
         image: photoURL.trim() || undefined,
-        fetchOptions: {
-          onError: (ctx) => {
-            const errorMsg = ctx.error.message || "Registration failed";
-            toast.error(errorMsg);
-          },
-        },
       });
 
-      if (result.error) {
-        toast.error(result.error.message || "Registration failed. Email may already exist.");
+      if (result?.error) {
+        toast.error(
+          result.error.message ||
+            "Registration failed. Email may already be in use."
+        );
         setIsLoading(false);
         return;
       }
@@ -231,9 +228,13 @@ export default function RegisterPage() {
 
       router.push("/");
       router.refresh();
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("Registration error:", error);
-      toast.error("An unexpected error occurred during registration. Please try again.");
+      const errMsg =
+        error instanceof Error
+          ? error.message
+          : "An unexpected error occurred during registration. Please try again.";
+      toast.error(errMsg);
     } finally {
       setIsLoading(false);
     }
