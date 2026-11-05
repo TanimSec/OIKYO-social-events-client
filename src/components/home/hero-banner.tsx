@@ -27,7 +27,7 @@ export function HeroBanner() {
   return (
     <section className="relative min-h-[85vh] sm:min-h-[90vh] lg:min-h-[94vh] flex items-center justify-center overflow-hidden py-24 sm:py-32 lg:py-36">
       {/* Background Video Covering ENTIRE Hero Section With Top Alignment */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
+      <div className="absolute inset-0 z-0 overflow-hidden bg-zinc-950">
         <video
           ref={videoRef}
           autoPlay
@@ -35,7 +35,6 @@ export function HeroBanner() {
           muted
           playsInline
           preload="auto"
-          poster="/images/events/slum-education.jpg"
           className="absolute inset-0 w-full h-full object-cover object-top"
         >
           <source src="/videos/Oikyo_heroVid.mp4" type="video/mp4" />
