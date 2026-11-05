@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ProtectedRoute } from "@/components/protected-route";
 import { useSession } from "@/lib/auth-client";
-import { getBackendToken, getTomorrowOrTodayDateString } from "@/lib/api";
+import { getBackendToken, getServerUrl, getTomorrowOrTodayDateString } from "@/lib/api";
 import { SocialEvent } from "@/components/events/event-card";
 import Swal from "sweetalert2";
 import { toast } from "sonner";
@@ -247,8 +247,7 @@ function EditEventModal({ event, onClose, onSuccess }: EditModalProps) {
         return;
       }
 
-      const serverUrl =
-        process.env.NEXT_PUBLIC_SERVER_API_URL || "http://localhost:5000";
+      const serverUrl = getServerUrl();
       const res = await fetch(`${serverUrl}/api/events/${event._id}`, {
         method: "PUT",
         headers: {
@@ -417,8 +416,7 @@ function ManageEventsContent() {
       const token = await getBackendToken(session.user.email, session.user.name);
       if (!token) return;
 
-      const serverUrl =
-        process.env.NEXT_PUBLIC_SERVER_API_URL || "http://localhost:5000";
+      const serverUrl = getServerUrl();
       const res = await fetch(`${serverUrl}/api/manage-events`, {
         headers: { Authorization: `Bearer ${token}` },
         cache: "no-store",
@@ -456,8 +454,7 @@ function ManageEventsContent() {
           const token = await getBackendToken(session.user.email, session.user.name);
           if (!token) return;
 
-          const serverUrl =
-            process.env.NEXT_PUBLIC_SERVER_API_URL || "http://localhost:5000";
+          const serverUrl = getServerUrl();
           const res = await fetch(`${serverUrl}/api/events/${id}`, {
             method: "DELETE",
             headers: { Authorization: `Bearer ${token}` },

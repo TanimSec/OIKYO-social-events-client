@@ -3,6 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { getServerUrl } from "@/lib/api";
 import { EventCard, EventCardSkeleton, SocialEvent } from "@/components/events/event-card";
 import {
   Search,
@@ -265,8 +266,7 @@ function UpcomingEventsContent() {
     async function loadUpcomingEvents() {
       setIsLoading(true);
       try {
-        const serverUrl =
-          process.env.NEXT_PUBLIC_SERVER_API_URL || "http://localhost:5000";
+        const serverUrl = getServerUrl();
         const params = new URLSearchParams({
           page: currentPage.toString(),
           limit: "6",

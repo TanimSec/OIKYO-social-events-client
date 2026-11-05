@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useSession } from "@/lib/auth-client";
-import { getBackendToken } from "@/lib/api";
+import { getBackendToken, getServerUrl } from "@/lib/api";
 import { SocialEvent } from "@/components/events/event-card";
 import Swal from "sweetalert2";
 import { toast } from "sonner";
@@ -323,8 +323,7 @@ function EventDetailsContent() {
       if (!eventId) return;
       setIsLoading(true);
       try {
-        const serverUrl =
-          process.env.NEXT_PUBLIC_SERVER_API_URL || "http://localhost:5000";
+        const serverUrl = getServerUrl();
         const res = await fetch(`${serverUrl}/api/events/${eventId}`, {
           cache: "no-store",
         });
@@ -392,8 +391,7 @@ function EventDetailsContent() {
 
     setIsJoining(true);
     try {
-      const serverUrl =
-        process.env.NEXT_PUBLIC_SERVER_API_URL || "http://localhost:5000";
+      const serverUrl = getServerUrl();
       const token = await getBackendToken(
         session.user.email,
         session.user.name

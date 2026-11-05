@@ -3,8 +3,23 @@
  * Handles communication with the Express backend and manages JWT authentication tokens.
  */
 
-const SERVER_BASE_URL =
-  process.env.NEXT_PUBLIC_SERVER_API_URL || "http://localhost:5000";
+/**
+ * Resolves the backend server API URL dynamically.
+ * Prioritizes explicit NEXT_PUBLIC_SERVER_API_URL, then live production Vercel backend, then local dev.
+ */
+export function getServerUrl(): string {
+  if (process.env.NEXT_PUBLIC_SERVER_API_URL) {
+    return process.env.NEXT_PUBLIC_SERVER_API_URL;
+  }
+  if (
+    typeof window !== "undefined" &&
+    window.location.hostname !== "localhost" &&
+    window.location.hostname !== "127.0.0.1"
+  ) {
+    return "https://social-events-server-rho.vercel.app";
+  }
+  return "http://localhost:5000";
+}
 
 /**
  * Obtains a signed JWT token from the backend for the authenticated user.
@@ -19,7 +34,8 @@ export async function getBackendToken(
     const userName =
       typeof emailOrUser === "string" ? name : emailOrUser.name;
 
-    const res = await fetch(`${SERVER_BASE_URL}/api/jwt`, {
+    const serverBase = getServerUrl();
+    const res = await fetch(`${serverBase}/api/jwt`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, name: userName }),

@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ProtectedRoute } from "@/components/protected-route";
 import { useSession, authClient } from "@/lib/auth-client";
-import { getBackendToken } from "@/lib/api";
+import { getBackendToken, getServerUrl } from "@/lib/api";
 import { toast } from "sonner";
 import {
   User,
@@ -281,8 +281,7 @@ function ProfileContent() {
         const token = await getBackendToken(user.email, user.name);
         if (!token) return;
 
-        const serverUrl =
-          process.env.NEXT_PUBLIC_SERVER_API_URL || "http://localhost:5000";
+        const serverUrl = getServerUrl();
 
         const [manageRes, joinedRes] = await Promise.all([
           fetch(`${serverUrl}/api/manage-events`, {

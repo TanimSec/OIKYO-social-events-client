@@ -4,7 +4,7 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "@/lib/auth-client";
 import { ProtectedRoute } from "@/components/protected-route";
-import { getBackendToken } from "@/lib/api";
+import { getBackendToken, getServerUrl } from "@/lib/api";
 import { toast } from "sonner";
 import Swal from "sweetalert2";
 import {
@@ -298,7 +298,7 @@ function CreateEventForm() {
         return;
       }
 
-      const serverUrl = process.env.NEXT_PUBLIC_SERVER_API_URL || "http://localhost:5000";
+      const serverUrl = getServerUrl();
       const response = await fetch(`${serverUrl}/api/events`, {
         method: "POST",
         headers: {
