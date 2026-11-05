@@ -157,14 +157,16 @@ export default function RegisterPage() {
         provider,
         callbackURL: "/",
       });
-      if (res?.error) {
-        throw new Error(res.error.message);
+      if (res?.data?.url && typeof window !== "undefined") {
+        window.location.href = res.data.url;
+        return;
       }
-    } catch {
-      toast.info(
-        `${provider === "google" ? "Google" : "GitHub"} OAuth is not configured with client keys yet. Please register with email below.`,
-        { duration: 5000 }
-      );
+      if (res?.error) {
+        toast.error(res.error.message || `Failed to sign in with ${provider}`);
+      }
+    } catch (err: unknown) {
+      console.error(`${provider} OAuth error:`, err);
+      toast.error(`Could not connect to ${provider}. Please try again.`);
     } finally {
       setSocialLoading(null);
     }
