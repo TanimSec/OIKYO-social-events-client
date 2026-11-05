@@ -25,8 +25,8 @@ export function HeroBanner() {
   };
 
   return (
-    <section className="relative min-h-[640px] sm:min-h-[720px] flex items-center justify-center overflow-hidden">
-      {/* Background Video Covering ENTIRE Hero Section */}
+    <section className="relative min-h-[85vh] sm:min-h-[90vh] lg:min-h-[94vh] flex items-center justify-center overflow-hidden py-24 sm:py-32 lg:py-36">
+      {/* Background Video Covering ENTIRE Hero Section With Top Alignment */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <video
           ref={videoRef}
@@ -36,22 +36,22 @@ export function HeroBanner() {
           playsInline
           preload="auto"
           poster="/images/events/slum-education.jpg"
-          className="absolute inset-0 w-full h-full object-cover object-center"
+          className="absolute inset-0 w-full h-full object-cover object-top"
         >
           <source src="/videos/Oikyo_heroVid.mp4" type="video/mp4" />
           <source src="/videos/hero.mp4" type="video/mp4" />
         </video>
 
         {/* Balanced Scrim for High Contrast & Text Legibility */}
-        <div className="absolute inset-0 bg-black/50 dark:bg-black/65 backdrop-brightness-95" />
+        <div className="absolute inset-0 bg-black/45 dark:bg-black/60 backdrop-brightness-95" />
 
-        {/* Seamless Theme-Adaptive Edge Blends (Fixes Light-Mode Black Box Bug) */}
-        <div className="absolute top-0 inset-x-0 h-16 bg-gradient-to-b from-background/30 to-transparent pointer-events-none" />
+        {/* Seamless Theme-Adaptive Edge Blends */}
+        <div className="absolute top-0 inset-x-0 h-20 bg-gradient-to-b from-background/30 to-transparent pointer-events-none" />
         <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-background via-background/70 to-transparent pointer-events-none" />
       </div>
 
       {/* Centered, Uncluttered Hero Content */}
-      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center space-y-6 sm:space-y-8">
+      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6 sm:space-y-8">
         {/* Civic Tag */}
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/50 border border-white/20 backdrop-blur-md text-white text-xs font-semibold shadow-lg">
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
@@ -91,7 +91,7 @@ export function HeroBanner() {
       <button
         type="button"
         onClick={toggleSound}
-        className="absolute bottom-6 right-6 z-20 px-3.5 py-2 rounded-full bg-black/60 hover:bg-black/80 text-white backdrop-blur-md border border-white/25 text-xs font-semibold flex items-center gap-2 transition-all shadow-lg hover:scale-105"
+        className="absolute bottom-8 right-6 z-20 px-3.5 py-2 rounded-full bg-black/60 hover:bg-black/80 text-white backdrop-blur-md border border-white/25 text-xs font-semibold flex items-center gap-2 transition-all shadow-lg hover:scale-105"
         title={isMuted ? "Unmute Video Sound" : "Mute Video Sound"}
         aria-label={isMuted ? "Unmute Video Sound" : "Mute Video Sound"}
       >
