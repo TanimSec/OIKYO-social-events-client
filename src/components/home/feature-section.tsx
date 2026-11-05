@@ -48,19 +48,27 @@ export function FeatureSection() {
   ];
 
   return (
-    <section className="py-16 sm:py-20 border-b border-zinc-200/80 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-950/40">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="max-w-2xl mx-auto text-center space-y-3 mb-12">
-          <p className="text-xs uppercase font-bold tracking-widest text-emerald-600 dark:text-emerald-400">
-            Platform Capabilities
-          </p>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-50">
-            Built for Transparent Community Impact
-          </h2>
-          <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400">
-            Engineered with modern full-stack safeguards so organizers and volunteers can focus on creating tangible change on the ground.
-          </p>
+    <section
+      id="what-we-do"
+      className="py-16 sm:py-24 border-b border-zinc-200/80 dark:border-zinc-800/80 bg-white dark:bg-zinc-950"
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14">
+        {/* Editorial Two-Column Header (Inspired by GenocideEdu NGO Design) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start border-b border-zinc-100 dark:border-zinc-900 pb-12">
+          <div className="lg:col-span-6 space-y-3">
+            <span className="text-xs font-bold uppercase tracking-wider text-rose-500">
+              What We Do
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-zinc-900 dark:text-zinc-50 leading-[1.1]">
+              Meeting <span className="text-rose-500">Immediate Needs</span>, Building Strong Futures
+            </h2>
+          </div>
+
+          <div className="lg:col-span-6 pt-2">
+            <p className="text-base sm:text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
+              Our grassroots civic programs are built to deliver both immediate humanitarian relief and lasting social transformation. We address urgent community challenges—such as winter cold waves, lake pollution, and primary healthcare gaps across Dhaka—while equipping citizens with the transparent platform needed to organize sustainable community solutions.
+            </p>
+          </div>
         </div>
 
         {/* Equal-Height Feature Cards Grid */}
@@ -70,10 +78,10 @@ export function FeatureSection() {
             return (
               <div
                 key={feature.title}
-                className="h-full p-6 sm:p-7 rounded-2xl border border-zinc-200 dark:border-zinc-800/80 bg-white dark:bg-zinc-900/80 shadow-xs hover:border-emerald-500/40 dark:hover:border-emerald-500/40 transition-all flex flex-col justify-between"
+                className="h-full p-6 sm:p-7 rounded-2xl border border-zinc-200/90 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-900/60 shadow-xs hover:border-emerald-500/40 dark:hover:border-emerald-500/40 transition-all flex flex-col justify-between group"
               >
                 <div className="space-y-4">
-                  <div className="w-11 h-11 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+                  <div className="w-11 h-11 rounded-xl bg-emerald-100/80 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 flex items-center justify-center group-hover:scale-105 transition-transform">
                     <Icon className="w-5 h-5" />
                   </div>
                   <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">
@@ -91,4 +99,3 @@ export function FeatureSection() {
     </section>
   );
 }
-
