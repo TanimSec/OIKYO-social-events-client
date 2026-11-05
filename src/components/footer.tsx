@@ -1,24 +1,14 @@
 import Link from "next/link";
 import { Heart, Mail, MapPin, Phone } from "lucide-react";
 
+import { BrandLogo } from "@/components/brand-logo";
+
 const CURRENT_YEAR = 2026;
 
 function FooterBrand() {
   return (
     <div className="lg:col-span-2 space-y-4">
-      <Link href="/" className="flex items-center gap-2.5 group">
-        <div className="w-9 h-9 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-lg shadow-sm shadow-emerald-600/30">
-          ঐ
-        </div>
-        <div className="flex flex-col">
-          <span className="font-extrabold text-xl tracking-tight text-zinc-900 dark:text-zinc-50">
-            Oikyo
-          </span>
-          <span className="text-[10px] uppercase font-semibold tracking-widest text-emerald-600 dark:text-emerald-400">
-            Social Development Platform
-          </span>
-        </div>
-      </Link>
+      <BrandLogo size="md" />
       <p className="text-sm leading-relaxed max-w-sm text-zinc-600 dark:text-zinc-400">
         A transparent, grassroots community service collective empowering citizens
         across Dhaka to organize winter clothes distributions, urban greenery drives,

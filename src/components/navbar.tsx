@@ -49,25 +49,10 @@ const AUTH_DROPDOWN_LINKS = [
   },
 ];
 
+import { BrandLogo } from "@/components/brand-logo";
+
 function NavBrand() {
-  return (
-    <Link
-      href="/"
-      className="flex items-center gap-2.5 text-zinc-900 dark:text-zinc-100 group focus:outline-none"
-    >
-      <div className="w-9 h-9 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-lg shadow-sm shadow-emerald-600/30 group-hover:bg-emerald-500 transition-colors">
-        ঐ
-      </div>
-      <div className="flex flex-col">
-        <span className="font-extrabold text-xl tracking-tight leading-none text-zinc-900 dark:text-zinc-50">
-          Oikyo
-        </span>
-        <span className="text-[10px] uppercase font-semibold tracking-widest text-emerald-600 dark:text-emerald-400 leading-tight">
-          Community Action
-        </span>
-      </div>
-    </Link>
-  );
+  return <BrandLogo size="md" />;
 }
 
 function UserDropdownMenu({
