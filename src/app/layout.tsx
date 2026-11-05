@@ -18,6 +18,17 @@ export const metadata: Metadata = {
   title: "Oikyo | Social Development Events Platform (Dhaka, Bangladesh)",
   description:
     "A transparent, community-driven event management platform where citizens can create, join, and lead grassroots social service initiatives across Dhaka and Bangladesh.",
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "32x32" },
+    ],
+    apple: [
+      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
+  },
+  manifest: "/site.webmanifest",
 };
 
 export default function RootLayout({
