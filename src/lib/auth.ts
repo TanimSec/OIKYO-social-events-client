@@ -9,10 +9,21 @@ const dbName = process.env.DB_NAME || "socialEventsDB";
 const client = new MongoClient(uri);
 const db = client.db(dbName);
 
+const getAuthBaseUrl = () => {
+  if (process.env.BETTER_AUTH_URL) return process.env.BETTER_AUTH_URL;
+  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
+    return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
+  }
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+  return "http://localhost:3000";
+};
+
 export const auth = betterAuth({
   database: mongodbAdapter(db),
   secret: process.env.BETTER_AUTH_SECRET || "social_development_events_better_auth_secret_2026",
-  baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000",
+  baseURL: getAuthBaseUrl(),
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: false, // Per assignment rules: do not enforce email verification
