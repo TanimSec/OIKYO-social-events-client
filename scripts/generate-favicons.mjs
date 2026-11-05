@@ -128,3 +128,4 @@ main().catch((err) => {
   console.error("❌ Failed to generate favicons:", err);
   process.exit(1);
 });
+
