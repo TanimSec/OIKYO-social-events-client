@@ -6,43 +6,37 @@ export function GallerySection() {
       title: "Warm Blanket Distribution",
       location: "Mirpur 10, Dhaka",
       category: "Winter Relief",
-      image:
-        "https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&w=800&q=80",
+      image: "/images/events/winter-relief.jpg",
     },
     {
       title: "Dhanmondi Lake Cleanliness Initiative",
       location: "Dhanmondi Lake, Dhaka",
       category: "Sanitation",
-      image:
-        "https://images.unsplash.com/photo-1618477461853-cf6ed80faba5?auto=format&fit=crop&w=800&q=80",
+      image: "/images/events/lake-cleanup.jpg",
     },
     {
       title: "Urban Shade Sapling Plantation",
       location: "Uttara Sector 7, Dhaka",
       category: "Afforestation",
-      image:
-        "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=800&q=80",
+      image: "/images/events/tree-plantation.jpg",
     },
     {
       title: "Free Community Health Screening",
       location: "Mohammadpur Town Hall, Dhaka",
       category: "Healthcare",
-      image:
-        "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80",
+      image: "/images/events/healthcare-camp.jpg",
     },
     {
       title: "Storybook Distribution & Tutoring",
       location: "Korail Slum, Banani, Dhaka",
       category: "Education",
-      image:
-        "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80",
+      image: "/images/events/slum-education.jpg",
     },
     {
       title: "Riverbank Debris Cleanliness Drive",
       location: "Sadarghat Riverfront, Old Dhaka",
       category: "River Conservation",
-      image:
-        "https://images.unsplash.com/photo-1530587191325-3db32d826c18?auto=format&fit=crop&w=800&q=80",
+      image: "/images/events/river-cleanup.jpg",
     },
   ];
 
