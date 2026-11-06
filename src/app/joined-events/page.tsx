@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ProtectedRoute } from "@/components/protected-route";
 import { useSession } from "@/lib/auth-client";
-import { getBackendToken, getServerUrl } from "@/lib/api";
+import { getBackendToken, getServerUrl, getEventFallbackImage } from "@/lib/api";
 import {
   CheckCircle2,
   CalendarDays,
@@ -80,6 +80,11 @@ function JoinedEventsEmptyState() {
 }
 
 function JoinedEventCard({ item }: { item: JoinedEvent }) {
+  const fallbackImg = getEventFallbackImage(item.eventType);
+  const [imgSrc, setImgSrc] = React.useState<string>(
+    item.thumbnail || fallbackImg
+  );
+
   const formattedDate = new Date(item.eventDate).toLocaleDateString("en-US", {
     month: "short",
     day: "numeric",
@@ -97,11 +102,13 @@ function JoinedEventCard({ item }: { item: JoinedEvent }) {
     <div className="flex flex-col h-full rounded-3xl border border-zinc-200/90 dark:border-zinc-800/90 bg-white dark:bg-zinc-900 overflow-hidden shadow-xs hover:shadow-md transition-all group">
       <div className="relative h-44 sm:h-48 w-full overflow-hidden bg-zinc-100 dark:bg-zinc-800">
         <Image
-          src={item.thumbnail || "/images/events/dhaka-clean-mirpur.jpg"}
+          src={imgSrc}
           alt={item.title}
           fill
+          unoptimized={typeof imgSrc === "string" && imgSrc.startsWith("http")}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover group-hover:scale-105 transition-transform duration-500"
+          onError={() => setImgSrc(fallbackImg)}
         />
         <div className="absolute top-3.5 left-3.5 flex items-center gap-2">
           <span className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-600/90 text-white backdrop-blur-xs shadow-xs">

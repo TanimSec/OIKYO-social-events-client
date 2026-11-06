@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Calendar, MapPin, ArrowRight } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { getEventFallbackImage } from "@/lib/api";
 
 export interface SocialEvent {
   _id: string;
@@ -24,6 +25,7 @@ const CATEGORY_COLORS: Record<string, string> = {
 };
 
 export function EventCard({ event }: { event: SocialEvent }) {
+  const fallbackImg = getEventFallbackImage(event.eventType);
   const badgeClass =
     CATEGORY_COLORS[event.eventType] ||
     "bg-zinc-100 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-200 border-zinc-200 dark:border-zinc-700";
@@ -35,9 +37,14 @@ export function EventCard({ event }: { event: SocialEvent }) {
         <div className="relative aspect-16/10 w-full overflow-hidden bg-zinc-100 dark:bg-zinc-800">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={event.thumbnail}
+            src={event.thumbnail || fallbackImg}
             alt={event.title}
             loading="lazy"
+            onError={(e) => {
+              if (e.currentTarget.src !== fallbackImg) {
+                e.currentTarget.src = fallbackImg;
+              }
+            }}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
           />
           {/* Category Badge Tag */}

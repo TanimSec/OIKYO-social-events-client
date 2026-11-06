@@ -127,6 +127,7 @@ function UserIdentityCard({ name, email, image, createdAt }: UserIdentityProps) 
               src={image}
               alt={name}
               fill
+              unoptimized={typeof image === "string" && image.startsWith("http")}
               sizes="80px"
               className="object-cover"
             />

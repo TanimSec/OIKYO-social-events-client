@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useSession } from "@/lib/auth-client";
-import { getBackendToken, getServerUrl } from "@/lib/api";
+import { getBackendToken, getServerUrl, getEventFallbackImage } from "@/lib/api";
 import { SocialEvent } from "@/components/events/event-card";
 import Swal from "sweetalert2";
 import { toast } from "sonner";
@@ -133,15 +133,20 @@ function EventHero({
   title: string;
   eventType: string;
 }) {
+  const fallbackImg = getEventFallbackImage(eventType);
+  const [imgSrc, setImgSrc] = React.useState<string>(thumbnail || fallbackImg);
+
   return (
     <div className="relative w-full h-[280px] sm:h-[420px] rounded-3xl overflow-hidden mb-10 shadow-sm border border-zinc-200/80 dark:border-zinc-800">
       <Image
-        src={thumbnail || "/images/events/dhaka-clean-mirpur.jpg"}
+        src={imgSrc}
         alt={title}
         fill
         priority
+        unoptimized={typeof imgSrc === "string" && imgSrc.startsWith("http")}
         sizes="(max-width: 1200px) 100vw, 1200px"
         className="object-cover"
+        onError={() => setImgSrc(fallbackImg)}
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
       <div className="absolute bottom-6 left-6 right-6">

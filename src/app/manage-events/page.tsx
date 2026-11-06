@@ -5,7 +5,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { ProtectedRoute } from "@/components/protected-route";
 import { useSession } from "@/lib/auth-client";
-import { getBackendToken, getServerUrl, getTomorrowOrTodayDateString } from "@/lib/api";
+import {
+  getBackendToken,
+  getServerUrl,
+  getTomorrowOrTodayDateString,
+  getEventFallbackImage,
+} from "@/lib/api";
 import { SocialEvent } from "@/components/events/event-card";
 import Swal from "sweetalert2";
 import { toast } from "sonner";
@@ -367,6 +372,11 @@ function ManageEventItem({
   onEdit,
   onDelete,
 }: EventItemProps) {
+  const fallbackImg = getEventFallbackImage(event.eventType);
+  const [imgSrc, setImgSrc] = React.useState<string>(
+    event.thumbnail || fallbackImg
+  );
+
   const formattedDate = new Date(event.eventDate).toLocaleDateString("en-US", {
     month: "short",
     day: "numeric",
@@ -378,11 +388,13 @@ function ManageEventItem({
       <div className="flex items-center gap-4 w-full sm:w-auto overflow-hidden">
         <div className="relative w-20 sm:w-28 h-20 rounded-xl overflow-hidden bg-zinc-100 dark:bg-zinc-800 shrink-0">
           <Image
-            src={event.thumbnail || "/images/events/dhaka-clean-mirpur.jpg"}
+            src={imgSrc}
             alt={event.title}
             fill
+            unoptimized={typeof imgSrc === "string" && imgSrc.startsWith("http")}
             sizes="120px"
             className="object-cover"
+            onError={() => setImgSrc(fallbackImg)}
           />
         </div>
 

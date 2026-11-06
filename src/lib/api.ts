@@ -60,3 +60,25 @@ export function getTomorrowOrTodayDateString(): string {
   tomorrow.setDate(tomorrow.getDate() + 1);
   return tomorrow.toISOString().split("T")[0];
 }
+
+/**
+ * Returns a guaranteed valid local fallback image for any event category.
+ */
+export function getEventFallbackImage(eventType?: string): string {
+  switch (eventType?.toLowerCase()) {
+    case "cleanup":
+      return "/images/events/lake-cleanup.jpg";
+    case "plantation":
+      return "/images/events/tree-plantation.jpg";
+    case "donation":
+      return "/images/events/winter-relief.jpg";
+    case "healthcare":
+      return "/images/events/healthcare-camp.jpg";
+    case "education":
+      return "/images/events/slum-education.jpg";
+    case "relief":
+      return "/images/events/food-relief.jpg";
+    default:
+      return "/images/events/lake-cleanup.jpg";
+  }
+}
